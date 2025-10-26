@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bus Buddy – User Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg1:#0b1023; --bg2:#0e1b4f;
+      --ac1:#3ee7ff; --ac2:#7a7dff;
+      --text:#e9f0ff;
+    }
+    body {
+      margin:0; font-family:'Poppins',sans-serif;
+      background:linear-gradient(145deg,var(--bg1),var(--bg2));
+      color:var(--text); height:100vh;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .card {
+      width: min(400px,90%);
+      padding:30px; border-radius:16px;
+      background: rgba(255,255,255,.08); backdrop-filter: blur(14px);
+      border:1px solid rgba(255,255,255,.2);
+      box-shadow:0 15px 40px rgba(0,0,0,.6);
+    }
+    .title {
+      font-family:'Orbitron',sans-serif;
+      font-size:26px; text-align:center; margin-bottom:20px;
+      text-shadow:0 0 12px rgba(62,231,255,.7);
+    }
+
+    /* ✅ Common style for input & select */
+    .form-control {
+      width:100%; height:50px;   /* SAME SIZE FOR ALL */
+      padding:0 14px; margin:12px 0;
+      border-radius:12px;
+      border:2px solid rgba(62,231,255,0.5);
+      background:rgba(0,0,0,0.85);
+      color:#fff; font-size:15px; font-weight:500;
+      outline:none; appearance:none;
+      box-sizing:border-box;
+    }
+    .form-control::placeholder { color:#bbb; }
+    .form-control option { background:#000; color:#fff; }
+
+    .btn {
+      width:100%; padding:14px; margin-top:16px;
+      border:none; border-radius:12px;
+      font-weight:600; font-size:16px; cursor:pointer;
+      background:linear-gradient(135deg,var(--ac2),var(--ac1));
+      color:#081126; transition:transform .2s;
+      box-shadow:0 8px 22px rgba(62,231,255,.35);
+    }
+    .btn:hover { transform:scale(1.05); }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="title">🧑‍💻 USER LOGIN</div>
+    <input type="text" class="form-control" id="username" placeholder="Username">
+    <input type="password" class="form-control" id="password" placeholder="Password">
+
+    <!-- ✅ Route Dropdown (same size now) -->
+    <select class="form-control" id="route">
+      <option value="">Select Route</option>
+      <option value="route1">Route-1</option>
+      <option value="route2">Route-2</option>
+      <option value="route3">Route-3</option>
+      <option value="route4">Route-4</option>
+      <option value="route5">Route-5</option>
+      <option value="route6">Route-6</option>
+      <option value="route7">Route-7</option>
+      <option value="route8">Route-8</option>
+      <option value="route9">Route-9</option>
+      <option value="route10">Route-10</option>
+      <option value="route11">Route-11</option>
+      <option value="route12">Route-12</option>
+    </select>
+
+    <!-- ✅ Receive Location button -->
+    <button class="btn" onclick="receiveLocation()">Receive Location</button>
+  </div>
+
+  <script>
+    function receiveLocation(){
+      let u=document.getElementById('username').value;
+      let p=document.getElementById('password').value;
+      let r=document.getElementById('route').value;
+
+      if(!u || !p || !r){
+        alert("⚠ Please fill username, password and select a route");
+        return;
+      }
+
+      // Driver location check
+      let driverLat = localStorage.getItem("driverLat");
+      let driverLng = localStorage.getItem("driverLng");
+      let selectedRoute = localStorage.getItem("selectedRoute");
+
+      if(driverLat && driverLng && selectedRoute === r){
+        // Save student info (optional)
+        localStorage.setItem("studentUsername", u);
+        localStorage.setItem("studentRoute", r);
+
+        alert("✅ Driver location found. Redirecting to map...");
+        window.location.href="track.html";
+      } else {
+        alert("❌ No active driver sharing location for this route.");
+      }
+    }
+  </script>
+</body>
+</html>
